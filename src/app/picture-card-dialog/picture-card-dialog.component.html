@@ -1,0 +1,34 @@
+  <mat-dialog-content>
+    <table style="width:100%">
+        <tr>
+          <th>{{ Title }}</th>
+          <th><button
+            style="border: none; background-color: white; float: right;  align-content: top"
+                class="B2"
+                (click)="onNoClick()"
+              >
+              <i class='bi bi-x-lg'></i>
+              </button></th> 
+        </tr>
+        <tr>
+          <td
+          colspan="2"
+          > 
+            <img class="picture" *ngFor="let imageURL of imageURLs" src={{imageURL}} 
+            width="100%"  
+            (error)="handleMissingImage($event)">
+          </td>
+          <td>
+            <!-- <button
+            style="border: none; background-color: white;"
+                class="B2"
+                (click)="onNoClick()"
+              >
+              <i class='bi bi-caret-right-fill'></i>
+              </button> -->
+            </td>
+        </tr>
+      </table>
+    </mat-dialog-content>
+
+

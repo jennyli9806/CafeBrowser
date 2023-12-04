@@ -1,0 +1,38 @@
+<div *ngIf="!(loading$ | async)">
+  <div>
+    <table style="width: 100%" *ngIf="IsFavoriteRoute">
+      <td>
+        <h1 style="font-weight: 700">{{ "Favourites" | translate }}</h1>
+      </td>
+      <td style="align-items: right; width: 40px; height: 40px">
+        <button style="border: none" class="B1" (click)="navigateHome()">
+          <i style="color: #003778" class="bi bi-x"></i>
+        </button>
+      </td>
+    </table>
+    <div class="home-container">
+      <mat-card
+        class="incomplete-card"
+        *ngFor="
+          let favouritesResult of IsFavoriteRoute
+            ? favouritesResults
+            : favouritesResults?.slice(0, 3)
+        "
+      >
+        <sku-item
+          [isFavourite]="true"
+          [searchResult]="favouritesResult"
+          [language]="language"
+          (isFavouriteChange)="getEmployeeFavourites()"
+        >
+        </sku-item>
+      </mat-card>
+    </div>
+  </div>
+  <div class="spinner" *ngIf="noResults == true">
+    {{ "No_items" | translate }}
+  </div>
+</div>
+<div class="spinner" *ngIf="loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>

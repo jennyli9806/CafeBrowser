@@ -1,0 +1,33 @@
+<div class="google-map">
+  <google-map
+    height="100%"
+    width="100%"
+    [center]="this.selectedMarkerLocation ?? this.EmployeeLocation"
+    [options]="mapOptions"
+  >
+    <map-marker
+      *ngFor="let markerPosition of markerPositions"
+      [position]="markerPosition.location"
+      (mapClick)="onSelectMarker(markerPosition.locationId)"
+      [options]="{
+        icon:
+          this.selectedMarkerLocation === markerPosition.location
+            ? selectedMarker
+            : Marker
+      }"
+    ></map-marker>
+
+    <map-marker
+      #marker="mapMarker"
+      [position]="this.EmployeeLocation"
+      [options]="currentLocMarker"
+    ></map-marker>
+  </google-map>
+  <div class="layover-div" *ngIf="usingWorkLocation">
+    <label class="layover-text"
+      ><mat-icon style="vertical-align: middle; color: steelblue"
+        >my_location</mat-icon
+      >&nbsp;Using Work Location</label
+    >
+  </div>
+</div>

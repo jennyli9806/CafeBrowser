@@ -1,0 +1,38 @@
+<div *ngIf="!(loading$ | async)">
+  <div>
+    <table style="width: 100%" *ngIf="IsHistoryRoute">
+      <td>
+        <h1 style="font-weight: 700">{{ "Recent_Orders" | translate }}</h1>
+      </td>
+      <td style="align-items: right; width: 40px; height: 40px">
+        <button style="border: none" class="B1" [routerLink]="['/main/ncms']">
+          <i style="color: #003778" class="bi bi-x"></i>
+        </button>
+      </td>
+    </table>
+    <div class="home-container">
+      <mat-card
+        class="incomplete-card"
+        *ngFor="
+          let order of IsHistoryRoute
+            ? orderResponse?.OrderDetails
+            : orderResponse?.OrderDetails?.slice(0, 2)
+        "
+      >
+        <recent-order-item
+          [order]="order"
+          [language]="language"
+          [SkuDeatils]="getPlantSkus(order.SkuNumber, order.PlantId)"
+        >
+        </recent-order-item>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="spinner" *ngIf="noResults == true">
+    {{ "No_items" | translate }}
+  </div>
+</div>
+<!-- <div class="spinner" *ngIf="loading$ | async">
+  <mat-spinner></mat-spinner>
+</div> -->

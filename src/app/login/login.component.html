@@ -1,0 +1,43 @@
+<div class="row mt-5" *ngIf="LoginStatus == LoginStatusenum.Logging">
+  <div class="col-sm-4 offset-sm-4">
+    <div
+      style="
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        text-align: center;
+        padding: 30px;
+        color: gray;
+      "
+    >
+      <h3>
+        <i class="fa fa-key mr-2" aria-hidden="true"></i><span>Signing In</span>
+      </h3>
+      <div>Checking Credentials</div>
+      <div>
+        <img
+          style="max-width: 30px"
+          src="./assets/impersonating.gif"
+          class="mt-2"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-5" *ngIf="LoginStatus == LoginStatusenum.Failed">
+  <div class="col-sm-4 offset-sm-4">
+    <div
+      style="
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        text-align: center;
+        padding: 30px;
+        color: gray;
+      "
+    >
+      <h3>
+        <i class="fa fa-exclamation mr-2" aria-hidden="true"></i
+        ><span>Failed To Sign-In</span>
+      </h3>
+    </div>
+  </div>
+</div>

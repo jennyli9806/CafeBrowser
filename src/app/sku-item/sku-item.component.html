@@ -1,0 +1,63 @@
+<table class="search-results">
+  <tr >
+    <th *ngIf="sourceParam==='ncms'"
+      rowspan="3"
+      class="icon" 
+    >
+    <button (click)="openPicture(searchResult.SkuNumber, searchResult.ManufacturerPartNo)"
+    [disabled]="!hasImage" style="border: none; background: none;"><i [ngClass]="hasImage ? 'bi bi-image' : 'bi bi-gear-fill'"></i>
+  </button>
+    </th>
+    <th class="info" (click)="onItemSelected(searchResult.SkuNumber)" style="cursor: pointer;">
+      <span
+        [innerHTML]="
+          searchResult.ManufacturerPartNo | highlightSearch: searchInput
+        "
+      ></span>
+    </th>
+    <th rowspan="3" class="buttons" style="cursor: pointer;">
+      <div>
+        <button
+          class="B1"
+          (click)="addUpdateFav(searchResult.SkuNumber)"
+          mat-icon-button
+        >
+          <i [ngClass]="isFavourite ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
+        </button>
+      </div>
+    </th>
+  </tr>
+  <tr style="cursor: pointer;">
+    <td (click)="onItemSelected(searchResult.SkuNumber)">
+      <div *ngIf="sourceParam=='ncms'">
+      <span
+        [innerHTML]="
+          (language === 'en'
+            ? searchResult.SkuShortDescEn
+            : searchResult.SkuShortDescFr
+          ) | highlightSearch: searchInput
+        "
+      ></span>
+    </div>
+    <div *ngIf="sourceParam=='piam'">
+      {{ (language === 'en'
+      ? searchResult.SkuShortDescEn
+      : searchResult.SkuShortDescFr
+    ) }}
+    </div>
+    </td>
+  </tr>
+  <tr style="cursor: pointer;">
+    <td (click)="onItemSelected(searchResult.SkuNumber)">
+      <span
+        ><font color="#003778"
+          >SKU:<span
+            [innerHTML]="searchResult.SkuNumber | highlightSearch: searchInput"
+          ></span></font
+      ></span>
+      • {{ searchResult.MaintSpareCat }} 
+      <span *ngIf="sourceParam=='ncms'"> • {{ searchResult.Manufacturer }}</span>
+      <!-- <span [innerHTML]="searchResult.Manufacturer | highlightSearch: searchInput"></span>, this slows everything down bc of NULL-->
+    </td>
+  </tr>
+</table>

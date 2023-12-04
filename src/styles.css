@@ -1,0 +1,56 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import "../node_modules/font-awesome/css/font-awesome.min.css"; */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.B1 {
+  font-size: 14px;
+  text-align: center;
+  color: #003778;
+  background-color: #e5f1ff;
+  border-radius: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.B3 {
+  font-size: 14px;
+  text-align: center;
+  color: #003778;
+  background-color: #e5f1ff;
+  border-radius: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-divider {
+  accent-color: rgba(7, 44, 95, 0.1);
+}
+
+H2 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.highlight {
+  background-color: #e5f1ff;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

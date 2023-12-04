@@ -1,0 +1,91 @@
+<table style="width:100%">
+  <tr>
+    <th style="width:90%"><h2 mat-dialog-title>{{ Title }}</h2></th>
+    <th style="position: absolute;"><button
+      style="border: none; background-color: white; position: relative; align-content: top;"
+          class="B2"
+          (click)="onNoClick()"
+        >
+        <i class='bi bi-x-lg'></i>
+        </button></th> 
+  </tr>
+</table>
+<div mat-dialog-content>
+  <p>{{ longtext }}</p>
+</div>
+  <div *ngIf="partRetrieved == false">
+          <div *ngIf="method === 'Pickup'">
+            <table style="width: 100%">
+              <tr style="align-content: center">
+            <button
+            class="B1"
+            style="
+              font-weight: 500;
+              border: none;
+              color: white;
+              background-color: #00549A;
+              width: 100%;
+              height: 32px;
+              margin-bottom: 10px;
+            "
+            (click)="
+            navigateDepot(
+              'https://www.google.com/maps/dir/?api=1&destination='
+            )
+          "
+          >
+            {{ "Maps" | translate}}
+          </button>
+          </tr>
+          <tr>
+            <button
+              class="B1"
+              style="font-weight: 500; border: none; width:100%; height: 32px"
+              (click)="onSelect('Pickup')"
+            >
+              {{ "Proceed" | translate}}
+            </button>
+          </tr>
+          </table>
+          </div>
+          <div *ngIf="method === 'Delivery'">
+            <table>
+              <tr>
+                <td>
+            <button
+            class="B1"
+            style="
+              font-weight: 500;
+              border: none;
+              color: white;
+              background-color: lightgray;
+              width: 95px;
+              height: 32px;
+            "
+            (click)="onNoClick()"
+          >
+            {{ "Cancel" | translate}}
+          </button>
+        </td><td>
+            <button
+              class="B1"
+              style="font-weight: 500; border: none; width: 95px; height: 32px"
+              (click)="onSelect('Delivery')"
+            >
+              {{ "Yes" | translate}}
+            </button>
+          </td>
+          </tr>
+          </table>
+          </div>
+  </div>
+  <div *ngIf="partRetrieved == true || method === 'ThirdParty'" class="center">
+    <button
+      class="B1"
+      style="font-weight: 500; border: none; height: 32px;"
+      (click)="onSelect('Pickup')"
+    >
+      {{ "Create_Order" | translate }}
+    </button>
+</div>
+

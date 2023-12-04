@@ -1,0 +1,297 @@
+<div style="padding-bottom: 10px">
+  <search-bar></search-bar>
+</div>
+<mat-divider></mat-divider>
+<div class="spinner" *ngIf="loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="spinner" *ngIf="noResults == true">
+  {{ "No_Results" | translate }}
+</div>
+<div>
+  <!-- MAP VIEW -->
+  <div class="map" *ngIf="openMap == true">
+    <map-view
+      [addresses]="depotsResults"
+      [selectedPlantId]="activeDepot"
+      [viewPostalCode]="selectedPostalCode"
+      [EmployeeLocation]="EmployeeLocation"
+      [usingWorkLocation]="usingWorkLocation"
+    ></map-view>
+  <!-- NCMS MAP VIEW -->
+    <div class="scrolling-wrapper" *ngIf="sourceParam==='NCMS' || sourceParam==='ncms'">
+      <mat-card  style="cursor: pointer;"
+        class="card"
+        *ngFor="
+          let UserDepotsResult of UserDepotsResults | sort : 'asc' : 'value'
+        "
+        [ngClass]="{
+          'card-selected mat-elevation-z4':
+            UserDepotsResult.PlantId === activeDepot
+        }"
+        [appScrollIntoView]="UserDepotsResult.PlantId"
+        (click)="
+          onSelectCard(UserDepotsResult.PlantId);
+          selectDepot(
+            UserDepotsResult.PlantAddress,
+            UserDepotsResult.PlantPostalCode,
+            UserDepotsResult.PlantId
+          )
+        "
+      >
+        <mat-card-title
+          >{{ UserDepotsResult.PlantAddress }} | {{ "Plant" | translate }}
+          {{ UserDepotsResult.PlantId }}</mat-card-title
+        >
+        <mat-card-subtitle
+          >{{ UserDepotsResult.PlantCity }} •
+          {{ UserDepotsResult.distance.text }} {{ "Away" | translate }} •
+          {{ UserDepotsResult.duration.text | translate }}
+          {{ "Away" | translate }}
+          <br />
+          {{ UserDepotsResult.Unrestricted | number: '1.0-0'  }} {{ "Available" | translate }} • {{ UserDepotsResult.storageBins }}
+        </mat-card-subtitle>
+        <mat-card-actions>
+          <tr>
+            <td style="padding-right: 5px">
+              <button
+                class="B3"
+                (click)="openPhoneNumbersCard(UserDepotsResult.PlantUsersPhone)"
+                mat-button
+              >
+                <i class="bi bi-telephone"></i>
+              </button>
+            </td>
+
+            <td style="padding-right: 5px">
+              <button
+                class="B3"
+                mat-button
+                (click)="
+                  openDialog(
+                    'Pickup',
+                    UserDepotsResult.PlantPostalCode,
+                    UserDepotsResult.PlantId,
+                    UserDepotsResult.PlantUsersPhone
+                  )
+                "
+              >
+                {{ "Pickup" | translate }}
+              </button>
+            </td>
+            <td>
+              <button
+                class="B3"
+                mat-button
+                (click)="
+                  openDialog(
+                    'Delivery',
+                    UserDepotsResult.PlantPostalCode,
+                    UserDepotsResult.PlantId,
+                    UserDepotsResult.PlantUsersPhone
+                  )
+                "
+                [disabled]="!UserDepotsResult.IsDeliverable"
+              >
+                {{ "Delivery" | translate }}
+              </button>
+            </td>
+          </tr>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  <!-- PIAM MAP VIEW -->
+  <div class="scrolling-wrapper" *ngIf="sourceParam==='PIAM' || sourceParam==='piam'">
+    <mat-card  style="cursor: pointer;"
+      class="card"
+      *ngFor="
+        let UserDepotsResult of UserDepotsResults | sort : 'asc' : 'value'
+      "
+      [ngClass]="{
+        'card-selected mat-elevation-z4':
+          UserDepotsResult.PlantId === activeDepot
+      }"
+      [appScrollIntoView]="UserDepotsResult.PlantId"
+      (click)="
+        onSelectCard(UserDepotsResult.PlantId);
+        selectDepot(
+          UserDepotsResult.PlantAddress,
+          UserDepotsResult.PlantPostalCode,
+          UserDepotsResult.PlantId
+        )
+      "
+    >
+      <mat-card-title
+        >{{ UserDepotsResult.PlantAddress }} | {{ "Plant" | translate }}
+        {{ UserDepotsResult.PlantId }}</mat-card-title
+      >
+      <mat-card-subtitle
+        >{{ UserDepotsResult.PlantCity }} •
+        {{ UserDepotsResult.distance.text }} {{ "Away" | translate }} •
+        {{ UserDepotsResult.duration.text | translate }}
+        {{ "Away" | translate }}
+        <br />
+        <div
+          class="chip"
+          cdkDropListOrientation="horizontal" 
+          *ngFor="let SkuEquivalent of UserDepotsResult.allParts | sort : 'asc' : 'Rank'"
+          (click)="onItemSelected(
+            UserDepotsResult.PlantAddress, 
+            UserDepotsResult.PlantId, 
+            UserDepotsResult.PlantCity,
+            UserDepotsResult.distance.text,
+            UserDepotsResult.duration.text,
+            UserDepotsResult.allParts
+            )">
+          <div class="chip-head" [style.background-color]="myColour(SkuEquivalent.Rank)">{{SkuEquivalent.Rank==='Equivalent' ? 'EQ': 'OG'}}</div>
+          <div class="chip-content">{{SkuEquivalent.ManufacturerPartNo}}</div>
+          <div class="chip-close">{{SkuEquivalent.Unrestricted | number: '1.0-0'}}</div>
+      </div>
+      </mat-card-subtitle>
+    </mat-card>
+  </div>
+</div>
+
+  <!-- LIST VIEW -->
+  <div *ngIf="!(loading$ | async)">
+    <div *ngIf="openMap == false">
+  <!--NCMS LIST VIEW -->
+      <div *ngIf="sourceParam==='NCMS' || sourceParam==='ncms'">
+      <mat-card 
+        class="search-card"
+        *ngFor="
+          let UserDepotsResult of UserDepotsResults | sort : 'asc' : 'value'
+        "
+        (click)="
+          selectDepot(
+            UserDepotsResult.PlantAddress,
+            UserDepotsResult.PlantPostalCode,
+            UserDepotsResult.PlantId
+          )
+        "
+      >
+        <mat-card-title
+          >{{ UserDepotsResult.PlantAddress }} | {{ "Plant" | translate }}
+          {{ UserDepotsResult.PlantId }}</mat-card-title
+        >
+        <mat-card-subtitle
+          >{{ UserDepotsResult.PlantCity }} •
+          {{ UserDepotsResult.distance.text }} {{ "Away" | translate }} •
+          {{ UserDepotsResult.duration.text | translate : { text: "hours" } }}
+          {{ "Away" | translate }}
+          <br />
+          {{ UserDepotsResult.Unrestricted | number: '1.0-0' }} {{ "Available" | translate }} • {{ UserDepotsResult.storageBins }}
+        </mat-card-subtitle>
+        <mat-card-actions>
+          <tr>
+            <td style="padding-right: 5px">
+              <button
+                class="B3"
+                mat-button
+                (click)="openPhoneNumbersCard(UserDepotsResult.PlantUsersPhone)"
+              >
+                <i class="bi bi-telephone"></i>
+              </button>
+            </td>
+
+            <td style="padding-right: 5px">
+              <button
+                class="B3"
+                mat-button
+                (click)="
+                  openDialog(
+                    'Pickup',
+                    UserDepotsResult.PlantPostalCode,
+                    UserDepotsResult.PlantId,
+                    UserDepotsResult.PlantUsersPhone
+                  )
+                "
+              >
+                {{ "Pickup" | translate }}
+              </button>
+            </td>
+            <td>
+              <button
+                class="B3"
+                mat-button
+                (click)="
+                  openDialog(
+                    'Delivery',
+                    UserDepotsResult.PlantPostalCode,
+                    UserDepotsResult.PlantId,
+                    UserDepotsResult.PlantUsersPhone
+                  )
+                "
+                [disabled]="!UserDepotsResult.IsDeliverable"
+              >
+                {{ "Delivery" | translate }}
+              </button>
+            </td>
+          </tr>
+        </mat-card-actions>
+      </mat-card>
+      </div>
+  <!--PIAM LIST VIEW -->
+      <div *ngIf="sourceParam==='PIAM' || sourceParam==='piam'">
+        <mat-card  style="cursor: pointer;"
+        class="search-card"
+        *ngFor="
+          let UserDepotsResult of UserDepotsResults | sort : 'asc' : 'value'
+        "
+        (click)="onItemSelected(
+          UserDepotsResult.PlantAddress, 
+          UserDepotsResult.PlantId, 
+          UserDepotsResult.PlantCity,
+          UserDepotsResult.distance.text,
+          UserDepotsResult.duration.text,
+          UserDepotsResult.allParts
+          )"
+      >
+        <mat-card-title
+          >{{ UserDepotsResult.PlantAddress }} | {{ "Plant" | translate }}
+          {{ UserDepotsResult.PlantId }}</mat-card-title
+        >
+        <mat-card-subtitle
+          >{{ UserDepotsResult.PlantCity }} •
+          {{ UserDepotsResult.distance.text }} {{ "Away" | translate }} •
+          {{ UserDepotsResult.duration.text | translate }}
+          {{ "Away" | translate }}
+          <br />
+          <div
+          class="chip"
+          cdkDropListOrientation="horizontal" 
+          *ngFor="let SkuEquivalent of UserDepotsResult.allParts | sort : 'desc' : 'Rank' ">
+          <div class="chip-head" [style.background-color]="myColour(SkuEquivalent.Rank)">
+            <!-- R{{SkuEquivalent.Rank}} -->
+            {{SkuEquivalent.Rank==='Equivalent' ? 'EQ': 'OG'}}
+          </div>
+          <div class="chip-content">{{SkuEquivalent.ManufacturerPartNo}}</div>
+          <div class="chip-close">{{SkuEquivalent.Unrestricted | number: '1.0-0'}}</div>
+      </div>
+        </mat-card-subtitle>
+      </mat-card>
+    </div>
+    </div>
+  </div>
+  <!-- buttons -->
+  <div class="btn-holder">
+    <button
+      class="B2"
+      mat-stroked-button
+      color="primary"
+      (click)="openMap = true"
+      *ngIf="openMap == false"
+    >
+      <i class="bi bi-geo-alt-fill"></i> {{ "Map_View" | translate }}
+    </button>
+    <button
+      class="B2"
+      mat-stroked-button
+      color="primary"
+      (click)="openMap = false"
+      *ngIf="openMap == true"
+    >
+      <i class="bi bi-list-ul"></i> {{ "List_View" | translate }}
+    </button>
+  </div>
+</div>

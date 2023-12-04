@@ -1,0 +1,22 @@
+.point-selected {
+  border: 30px solid steelblue;
+}
+.google-map {
+  height: 85%;
+}
+.layover-div {
+  position: relative;
+  width: fit-content;
+  text-align: center;
+  margin-top: -45px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.layover-text {
+  width: 180px;
+  text-align: center;
+  background-color: white;
+  padding: 7px;
+  border-radius: 5px;
+  font-size: small;
+}

@@ -1,0 +1,42 @@
+.form-control {
+    border-radius: 70px;
+    border-color: rgba(7, 44, 95, 0.2);
+  }
+  .B1 {
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    gap: 4px;
+    width: 56px;
+    height: 32px;
+  }
+  
+  td {
+    padding: 0px;
+  }
+  
+  H1 {
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0.01em;
+  }
+  .home-container {
+    background-color: #f3f5f8;
+    padding: 8px;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  H2 {
+    font-size: 14px;
+    line-height: 16px;
+    padding-top: 10px;
+  }
+  .spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
+  

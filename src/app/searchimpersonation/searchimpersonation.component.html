@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    <span *ngIf="!User.IsImpersonate">Impersonation</span>
+    <span *ngIf="User.IsImpersonate">Stop Impersonating</span>
+
+    <span *ngIf="searching" class="ml-2"
+      ><img src="./assets/loading.gif"
+    /></span>
+  </h4>
+</div>
+<div class="modal-body" *ngIf="!User.IsImpersonate">
+  <input
+    type="text"
+    class="form-control"
+    [ngbTypeahead]="SearchEmployeeByKey"
+    [inputFormatter]="inputFormatBandListValue"
+    [resultFormatter]="resultFormatBandListValue"
+    (selectItem)="OnSelectItem($event)"
+    (blur)="OnBlur()"
+    [(ngModel)]="SearchImpersonateTxt"
+  />
+</div>
+
+<div class="modal-body" *ngIf="User.IsImpersonate">
+  <div class="h6">{{ User.Name + " " + User.Pein }}</div>
+</div>
+
+<div class="modal-footer" *ngIf="!User.IsImpersonate">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.close('Close click')"
+  >
+    {{ "Close" }}
+  </button>
+  <button
+    [disabled]="SelectedEmployee == null"
+    type="button"
+    class="btn btn-outline-danger"
+    (click)="OnImpersonate()"
+  >
+    {{ "Impersonate" }}
+  </button>
+</div>
+<div class="modal-footer" *ngIf="User.IsImpersonate">
+  <button
+    type="button"
+    class="btn btn-outline-danger"
+    (click)="StopImpersonation()"
+  >
+    {{ "Stop" }}
+  </button>
+</div>

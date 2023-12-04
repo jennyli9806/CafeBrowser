@@ -1,0 +1,70 @@
+.logoimg {
+  height: 30px;
+  width: 51px;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+.navbar {
+  display: flex;
+}
+.navbar-brand {
+  margin-right: 2em;
+}
+.projname {
+  color: #ffffff;
+  font-family: BellSlim;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+  vertical-align: -webkit-baseline-middle;
+}
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+.bi-person-circle {
+  color: #ffffff;
+}
+
+
+i.fa-user-plus {
+  color: crimson;
+}
+
+.lang {
+  display: inline-block;
+  color: #ffffff;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.lang :hover {
+  cursor: pointer;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+ul.lang {
+  list-style-type: none;
+  margin-bottom: 0px;
+  padding-left: 10px;
+}
+li {
+  display: inline;
+  padding: 3px;
+  color: white;
+}
+li.selected {
+  color: gray;
+}
+.navbar-nav .dropdown-menu {
+  position: absolute;
+}

@@ -1,0 +1,21 @@
+<div class="row mt-5" *ngIf="User">
+    <div class="col-sm-4 offset-sm-4">
+        <div style="border:1px solid lightgray;border-radius: 5px;text-align: center;padding: 30px;color:gray">
+            <h3 *ngIf="User.IsImpersonate" class="text=center">
+                 Impersonating
+            </h3>
+            <h3 *ngIf="!User.IsImpersonate" class="text=center">
+                Stop Impersonating
+            </h3>
+            <div>
+              Logging in as
+            </div>
+            <div>
+                <i class="fa fa-user mr-1"></i><span>{{User.Name+' '+User.Pein}}</span>
+            </div>
+            <div>
+                <img style="max-width: 30px;" src="./assets/impersonating.gif" class="mt-2" />
+            </div>
+        </div>
+    </div>
+</div>

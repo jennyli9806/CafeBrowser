@@ -1,0 +1,46 @@
+<table class="search-results">
+  <tr>
+    <!-- <th rowspan="4" class="icon">
+      <i [ngClass]="'bi bi-wrench'"></i>
+    </th> -->
+    <th class="info">
+      <span [innerHTML]="order.SkuNumber"></span>
+    </th>
+    <!-- <th rowspan="3" class="buttons">
+      <div>
+        <button
+          class="B1"
+          (click)="addUpdateFav(searchResult.SkuNumber)"
+          mat-icon-button
+        >
+          <i [ngClass]="isFavourite ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
+        </button>
+      </div>
+    </th> -->
+  </tr>
+  <tr>
+    <td>
+      <span style="color: #003778; font-weight: 500"
+        >{{ order.PlantId }} • {{ SkuDeatils.PlantAddress }}</span
+      >
+      <!-- <span [innerHTML]="searchResult.Manufacturer | highlightSearch: searchInput"></span>, this slows everything down bc of NULL-->
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ SkuDeatils.Manufacturer }} • {{ SkuDeatils.MaintSpareCat }}
+      <!-- <span [innerHTML]="searchResult.Manufacturer | highlightSearch: searchInput"></span>, this slows everything down bc of NULL-->
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span
+        [innerHTML]="
+          language === 'en'
+            ? SkuDeatils.SkuShortDescEn
+            : SkuDeatils.SkuShortDescFr
+        "
+      ></span>
+    </td>
+  </tr>
+</table>

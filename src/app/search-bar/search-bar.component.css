@@ -1,0 +1,11 @@
+.form-control {
+  border-radius: 70px;
+  border-color: rgba(7, 44, 95, 0.2);
+  display: 100%;
+}
+.inputBox {
+  width: 100%;
+}
+.B2 {
+  background-color: white;
+}

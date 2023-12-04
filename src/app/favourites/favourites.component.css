@@ -1,0 +1,54 @@
+.incomplete-card {
+  width: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 8px 8px 8px;
+  height: 100%;
+  border: 1.5px solid rgba(7, 44, 95, 0.1);
+  border-radius: 8px;
+  box-shadow: none;
+  margin-bottom: 2px;
+}
+.mat-card-title-group {
+  width: flex;
+  padding-top: 15px;
+  padding-bottom: 0px;
+  padding-left: 15px;
+  padding-right: 5px;
+}
+.mat-card-title {
+  font-size: 14px;
+  line-height: 16px;
+}
+.mat-card-subtitle {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+H2 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+.bi {
+  font-size: 30px;
+}
+.nobull {
+  list-style-type: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.home-container {
+  background-color: #f3f5f8;
+  padding: 8px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}

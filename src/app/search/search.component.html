@@ -1,0 +1,49 @@
+<!-- Search Results Page -->
+<!-- Search Input -->
+<div class="form-outline">
+  <search-bar></search-bar>
+  <!-- Filters -->
+  <div class="scrolling-wrapper">
+    <ng-template ngFor let-filter [ngForOf]="filters | sort: 'asc'">
+      <button
+        class="filter"
+        (click)="filtered(filter)"
+        [class.selected-filter]="isFiltered == filter"
+        *ngIf="filter?.length"
+      >
+        {{ filter | translate }}
+      </button>
+    </ng-template>
+    <button class="filter" *ngIf="isFiltered" (click)="filtered('')">
+      {{ "Reset" | translate }}
+    </button>
+  </div>
+</div>
+<mat-divider></mat-divider>
+
+<!-- SEARCH RESULTS -->
+<div class="spinner" *ngIf="loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!(loading$ | async)">
+  <ul>
+    <li
+      class="nobull"
+      *ngFor="
+        let searchResult of searchResults | sort: 'asc':'ManufacturerPartNo';
+        let i = index
+      "
+    >
+      <sku-item
+        [isFavourite]="isFavourite(searchResult.SkuNumber)"
+        [searchResult]="searchResult"
+        [searchInput]="searchInput"
+        [language]="language"
+      >
+      </sku-item>
+    </li>
+  </ul>
+</div>
+<div class="spinner" *ngIf="noResults == true">
+  {{ "No_Results" | translate }}
+</div>

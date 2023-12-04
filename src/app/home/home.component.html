@@ -1,0 +1,28 @@
+<div>
+  <!-- <div *ngIf="!(loading$ | async)"> -->
+  <!-- <H1>{{ "Hi" | translate }}, {{ Firstname }}</H1> -->
+  <div class="form-outline">
+    <search-bar></search-bar>
+  </div>
+  <div class="home-container">
+    <table style="width: 100%">
+      <td>
+        <h2>{{ "Favourites" | translate }}</h2>
+      </td>
+      <td style="align-items: right; width: 20px;">
+        <button
+          *ngIf="FavouritesLength > 0"
+          style="border: none"
+          class="B1"
+          (click)="navigateToFavorites()"
+        >
+          {{ FavouritesLength
+          }}<i style="color: #003778" class="bi bi-chevron-right"></i>
+        </button>
+      </td>
+    </table>
+    <favourites (getLength)="LengthNumber($event)"></favourites>
+  </div>
+  
+</div>
+

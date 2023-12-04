@@ -1,0 +1,9 @@
+.block {
+  display: flex;
+  justify-content: center;
+  /* padding-top: 60px; */
+  padding-bottom: 10px;
+}
+H2 {
+  text-align: left;
+}

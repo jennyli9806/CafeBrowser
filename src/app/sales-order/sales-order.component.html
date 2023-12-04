@@ -1,0 +1,160 @@
+<div class="center">
+  <!-- add validation to fields -->
+  <div [hidden]="submitted">
+    <div class="container">
+      <H2>{{ "Create_Order" | translate }}</H2>
+    </div>
+
+    <form (ngSubmit)="(onSubmit)" #salesOrder="ngForm">
+      <div class="container">
+        <table>
+          <tr>
+            <mat-form-field class="example-form-field">
+              <mat-label for="PeinNumber">NIE/PEIN</mat-label>
+              <input
+                matInput
+                type="string"
+                class="form-control"
+                id="PeinNumber"
+                required
+                [(ngModel)]="PeinNumber"
+                name="PeinNumber"
+              />
+            </mat-form-field>
+            <br />
+          </tr>
+          <tr>
+            <mat-form-field class="example-form-field">
+              <mat-label for="SKUNumber">SKU</mat-label>
+              <input
+                matInput
+                type="string"
+                class="form-control"
+                id="SKUNumber"
+                required
+                [(ngModel)]="SKUNumber"
+                name="SKUNumber"
+              />
+            </mat-form-field>
+            <br />
+          </tr>
+          <tr>
+            <mat-form-field class="example-form-field">
+              <mat-label for="quantityRequired">{{
+                "Quantity" | translate
+              }}</mat-label>
+              <input
+                matInput
+                type="number"
+                class="form-control"
+                id="quantityRequired"
+                required
+                max="{{ plantSku?.Unrestricted }}"
+                min="1"
+                [(ngModel)]="quantityRequired"
+                name="quantityRequired"
+              />
+            </mat-form-field>
+            <br />
+          </tr>
+          <div *ngIf="thirdParty==false">
+          <b>{{ plantSku?.Unrestricted }} {{ "Units" | translate }}:</b>
+          <tr>
+            <mat-radio-group
+              class="example-radio-group"
+              id="storageBin"
+              required
+              [(ngModel)]="storageBin"
+              name="storageBin"
+            >
+              <div *ngFor="let bin of plantSku?.StorageBins">
+                <mat-radio-button
+                  *ngIf="bin !== null"
+                  class="example-radio-button"
+                  [value]="bin"
+                  name="storageBin"
+                  (click)="otherLocation(false)"
+                >
+                  {{ bin }}
+                </mat-radio-button>
+              </div>
+              <mat-radio-button
+                class="example-radio-button"
+                [value]="'Other'"
+                (click)="otherLocation(true)"
+              >
+                {{ "Other" | translate }}
+              </mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field *ngIf="otherBin === true">
+              <input
+                matInput
+                type="string"
+                class="form-control"
+                id="newLocation"
+                [(ngModel)]="newLocation"
+                name="newLocation"
+                placeholder="{{ 'Location' | translate }}"
+              />
+            </mat-form-field>
+          </tr>
+        </div>
+          <input class="checkbox" type="checkbox" [checked]="shippingLabel" [(ngModel)]="shippingLabel" name="shippingLabel"> {{ "Shipping_Label" | translate }}
+          <tr>
+            <a
+              class="B1"
+              mat-stroked-button
+              [disabled]="!salesOrder.form.valid"
+              (click)="salesOrder.form.valid ? onSubmit() : null"
+              >{{ "Submit_Sales_Order" | translate }}</a
+            >
+          </tr>
+          <tr>
+            <button class="B2" mat-stroked-button routerLink="/main/ncms">
+              {{ "Cancel" | translate }}
+            </button>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <H2>{{ "Submit_Confirm" | translate }}</H2>
+
+    <table>
+      <tr>
+        <b> Material #</b>
+        <br />{{
+          SKUNumber
+        }}
+      </tr>
+      <tr>
+        <b>{{ "Quantity" | translate }}</b>
+        <br />{{
+          quantityRequired
+        }}
+      </tr>
+      <tr>
+        <b>NIE/PEIN #</b>
+        <br />{{
+          PeinNumber
+        }}
+      </tr>
+      <tr [hidden]="thirdParty">
+        <b>{{ "Location" | translate }}</b>
+        <br />{{
+          finalLocation
+        }}
+      </tr>
+      <br />
+      <!-- <button class="B1" mat-stroked-button (click)="submitted=false">Submit Another Order</button> -->
+      <button class="B2" mat-stroked-button routerLink="/main/ncms">
+        {{ "Done" | translate }}
+      </button>
+      <!-- <button [hidden]="!thirdParty" class="B2" mat-stroked-button (click)="navigateDepot('https://www.google.com/maps/dir/?api=1&destination=')">
+        {{ "Maps_again" | translate }}
+      </button> -->
+    </table>
+  </div>
+</div>

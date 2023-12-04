@@ -1,0 +1,36 @@
+<table style="width:100%">
+        <tr>
+          <th><mat-dialog-title>{{ PlantAddress }} | {{ "Plant" | translate }} {{ PlantID }}</mat-dialog-title></th>
+          <th><button
+            style="border: none; background-color: white; align-content: top, end; outline: none; float: right"
+                class="B2"
+                (click)="onNoClick()"
+              >
+              <i class='bi bi-x-lg'></i>
+              </button></th> 
+        </tr>
+</table>
+<p>
+{{ PlantCity }} •
+{{ PlantDistance }} {{ "Away" | translate }} •
+{{ PlantTime | translate }}
+{{ "Away" | translate }}
+</p>
+<div class="parts"
+          *ngFor="let SkuEquivalent of PlantEquivalents | sort : 'desc' : 'Rank'">
+          <table>
+            <tr>
+              <th>{{SkuEquivalent.ManufacturerPartNo}}</th>
+              <th><div class="rank" [style.background-color]="myColour(SkuEquivalent.Rank)">
+                <!-- Rank -->
+                 {{SkuEquivalent.Rank ?? "0"}}</div></th> 
+            </tr>
+    </table>
+          {{SkuEquivalent.SkuShortDescEn}}
+          <br>
+          <font color="#003778">SKU: {{SkuEquivalent.SkuNumber}}</font>
+         <br>
+          {{SkuEquivalent.Unrestricted | number: '1.0-0'}} {{ "Available" | translate }}
+          <br>
+          <font color="#003778">{{SkuEquivalent.StorageLocId}} {{SkuEquivalent.StorageLocName}} • {{SkuEquivalent.storageBins}}</font>
+      </div>
