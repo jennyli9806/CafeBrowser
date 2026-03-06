@@ -4,12 +4,11 @@
 
 export const environment = {
   production: false,
-  MatomoId: 1420,
-  MatomoUrl: 'https://matomo.fsbiapps.int.bell.ca/',
-  googleApiKey: 'AIzaSyDSqlapmrnMcGhaiCiPpuhjA260Z9KJhqU',
-  googleGeoCodeApiUrl: `https://maps.google.com/maps/api/geocode/json?address=:term&sensor=false&key=:key`,
-  // BaseUrl: 'https://localhost:44347',
-  BaseUrl: 'https://fopspreprod.int.bell.ca/Spares/API',
+  MatomoId: ,
+  MatomoUrl: '',
+  googleApiKey: '',
+  googleGeoCodeApiUrl: ``,
+  BaseUrl: '',
 
   AuthorizationController: {
     ControllerUrl: '/api/authorization/',
